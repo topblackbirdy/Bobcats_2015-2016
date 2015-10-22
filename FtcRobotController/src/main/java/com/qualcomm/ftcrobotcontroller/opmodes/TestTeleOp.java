@@ -11,46 +11,54 @@ import com.qualcomm.robotcore.util.Range;
 
 public class TestTeleOp extends OpMode {
 
-    DcMotor motorRight;
+    //    DcMotor motorRight;
     DcMotor motorLeft;
     //TODO check what kind of motors are being used
 
     @Override
     public void init() {
-        setStatus("Initializing");
-        motorRight = hardwareMap.dcMotor.get("motor_2");
+//        setStatus("Initializing");
+//        motorRight = hardwareMap.dcMotor.get("motor_2");
         motorLeft = hardwareMap.dcMotor.get("motor_1");
-        motorLeft.setDirection(DcMotor.Direction.REVERSE);
-        setStatus("Motors are set up");
+//        motorLeft.setDirection(DcMotor.Direction.REVERSE);
+//        setStatus("Motors are set up");
     }
 
     @Override
     public void loop() {
-        setStatus("Starting loop");
-        float throttle = -gamepad1.left_stick_y;
-        float direction = gamepad1.left_stick_x;
-        float right = throttle - direction;
-        float left = throttle + direction;
+        float right;
+        float left;
+//        motorLeft = hardwareMap.dcMotor.get("motor_1");
 
-        right = Range.clip(right, -1, 1);
-        left = Range.clip(left, -1, 1);
+//        setStatus("Starting loop");
+//        float throttle = -gamepad1.left_stick_y;
+//        float direction = gamepad1.left_stick_x;
+//        float right = throttle - direction;
+//        float left = throttle + direction;
 
-        right = (float) scaleInput(right);
-        left = (float) scaleInput(left);
+//        right = Range.clip(right, -1, 1);
+//        left = Range.clip(left, -1, 1);
 
-        setStatus("Read input from gamepad");
+        right = 0.5f;
+        left = 1;
 
-        motorRight.setPower(right);
+//        setStatus("Read input from gamepad");
+
+//        motorRight.setPower(right);
         motorLeft.setPower(left);
 
-        setStatus("Set power to the motors");
+//        setStatus("Set power to the motors");
 
         telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("left tgt pwr", "left  pwr: " + String.format("%.2f", left));
-        telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
+        telemetry.addData("left tgt pwr", "left tgt pwr: " + String.format("%.2f", left));
+        telemetry.addData("left pwr", "left pwr: " + motorLeft.getPower());
+        telemetry.addData("left connection info", motorLeft.getConnectionInfo());
+//        telemetry.addData("right tgt pwr", "right tgt pwr: " + String.format("%.2f", right));
+//        telemetry.addData("right pwr", "right pwr: " + motorRight.getPower());
+//        telemetry.addData("right connection info", motorRight.getConnectionInfo());
 
-        setStatus("Waiting for 1 second");
-        SystemClock.sleep(1000);
+//        setStatus("Waiting for 1 second");
+//        SystemClock.sleep(100);
     }
 
     @Override
@@ -58,9 +66,9 @@ public class TestTeleOp extends OpMode {
 
     }
 
-    private void setStatus(String message) {
-        FtcRobotControllerActivity.activity.setStatus(message);
-    }
+//    private void setStatus(String message) {
+//        FtcRobotControllerActivity.activity.setStatus(message);
+//    }
 
     double scaleInput(double dVal) {
         double[] scaleArray = {0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
